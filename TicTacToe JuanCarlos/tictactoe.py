@@ -21,16 +21,18 @@ def grid():
     line(-200, 67, 200, 67)
 
 
-def drawx(x, y):
+def drawx(x, y, pos):
     """Draw X player."""
+    board[pos[1]][pos[0]] = 1       #Y position is first on a matrix
     turtle.color('blue')
 
     line(x + 7, y + 7, x + 126, y + 126)
     line(x + 7, y + 126, x + 126, y + 7)
 
 
-def drawo(x, y):
+def drawo(x, y, pos):
     """Draw O player."""
+    board[pos[1]][pos[0]] = 2       #Y position is first on a matrix
     turtle.color('green')
     
     turtle.up()
@@ -43,9 +45,30 @@ def floor(value):
     """Round value down to grid with square size 133."""
     return ((value + 200) // 133) * 133 - 200
 
+def findCoords(x,y):
+    """Determines the space on a matrix that corresponds to a set of coordinates"""
+    _x = 0
+    _y = 0
+
+    if x == 66:
+        _x = 2
+    elif x == -67:
+        _x = 1
+    elif x == -200:
+        _x = 0
+
+    if y == 66:
+        _y = 0
+    elif y == -67:
+        _y = 1
+    elif y == -200:
+        _y = 2
+
+    return (_x, _y)
 
 state = {'player': 0}
 players = [drawx, drawo]
+board =  [[0] * 3 for _ in range(3)]
 
 
 def tap(x, y):
@@ -54,8 +77,9 @@ def tap(x, y):
     y = floor(y)
     player = state['player']
     draw = players[player]
-    draw(x, y)
+    draw(x, y, findCoords(x,y))
     turtle.update()
+    print(board)
     state['player'] = not player
 
 
@@ -64,6 +88,8 @@ turtle.hideturtle()
 turtle.tracer(False)
 grid()
 turtle.pensize(5)
+
+print(board)
 
 turtle.update()
 turtle.onscreenclick(tap)
