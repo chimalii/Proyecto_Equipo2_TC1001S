@@ -1,13 +1,4 @@
-"""Memory, puzzle game of number pairs.
-
-Exercises:
-
-1. Count and print how many taps occur.
-2. Decrease the number of tiles to a 4x4 grid.
-3. Detect when all tiles are revealed.
-4. Center single-digit tile.
-5. Use letters instead of tiles.
-"""
+"""Memorama, juego para encontrar parejas de autotas."""
 
 from random import shuffle
 from turtle import (
@@ -18,14 +9,14 @@ from turtle import (
 
 from freegames import path
 
-car = path('car.gif')
-tiles = list(range(32)) * 2
-state = {'mark': None}
-hide = [True] * 64
+auto = path('car.gif')
+fichas = list(range(32)) * 2
+estado = {'marca': None}
+oculto = [True] * 64
 
 
-def square(x, y):
-    """Draw white square with black outline at (x, y)."""
+def cuadrado(x, y):
+    """Dibuja un cuadrado blanco con borde negro en (x, y)."""
     up()
     goto(x, y)
     down()
@@ -37,60 +28,60 @@ def square(x, y):
     end_fill()
 
 
-def index(x, y):
-    """Convert (x, y) coordinates to tiles index."""
+def indice(x, y):
+    """Convierte las coordenadas (x, y) al índice de las fichas."""
     return int((x + 200) // 50 + ((y + 200) // 50) * 8)
 
 
-def xy(count):
-    """Convert tiles count to (x, y) coordinates."""
-    return (count % 8) * 50 - 200, (count // 8) * 50 - 200
+def xy(contador):
+    """Convierte el conteo de fichas a coordenadas (x, y)."""
+    return (contador % 8) * 50 - 200, (contador // 8) * 50 - 200
 
 
-def tap(x, y):
-    """Update mark and hidden tiles based on tap."""
-    spot = index(x, y)
-    mark = state['mark']
+def clicar(x, y):
+    """Actualiza la marca y las fichas ocultas basándose en los clicars."""
+    ubicacion = indice(x, y)
+    marca = estado['marca']
 
-    if mark is None or mark == spot or tiles[mark] != tiles[spot]:
-        state['mark'] = spot
+    if marca is None or marca == ubicacion or fichas[marca] != fichas[ubicacion]:
+        estado['marca'] = ubicacion
     else:
-        hide[spot] = False
-        hide[mark] = False
-        state['mark'] = None
+        oculto[ubicacion] = False
+        oculto[marca] = False
+        estado['marca'] = None
 
 
-def draw():
-    """Draw image and tiles."""
+def dibujar():
+    """Dibuja la imagen y las fichas."""
     clear()
     goto(0, 0)
-    shape(car)
+    shape(auto)
     stamp()
 
     for count in range(64):
-        if hide[count]:
+        if oculto[count]:
             x, y = xy(count)
-            square(x, y)
+            cuadrado(x, y)
 
-    mark = state['mark']
+    marca = estado['marca']
 
-    if mark is not None and hide[mark]:
-        x, y = xy(mark)
+    if marca is not None and oculto[marca]:
+        x, y = xy(marca)
         up()
         goto(x + 2, y)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(fichas[marca], font=('Arial', 30, 'normal'))
 
     update()
-    ontimer(draw, 100)
+    ontimer(dibujar, 100)
 
 
-"""Initialize game."""
-shuffle(tiles)
+"""Inicializa el juego."""
+shuffle(fichas)
 setup(420, 420, 370, 0)
-addshape(car)
+addshape(auto)
 hideturtle()
 tracer(False)
-onscreenclick(tap)
-draw()
+onscreenclick(clicar)
+dibujar()
 done()
