@@ -22,7 +22,9 @@ def grid():
 
 
 def drawx(x, y, pos):
-    """Draw X player."""
+    """Draw X player in an empty space.
+    Update board matrix.
+    Return bool for if something was drawn"""
     if board[pos[1]][pos[0]] == 0:
         board[pos[1]][pos[0]] = 1       # Y position is first on a matrix
         turtle.color('blue')
@@ -35,7 +37,10 @@ def drawx(x, y, pos):
 
 
 def drawo(x, y, pos):
-    """Draw O player."""
+    """Draw O player in an empty space.
+    Update board matrix.
+    Return bool for if something was drawn
+    """
     if board[pos[1]][pos[0]] == 0:
         board[pos[1]][pos[0]] = 2       # Y position is first on a matrix
         turtle.color('green')
@@ -82,7 +87,9 @@ board = [[0] * 3 for _ in range(3)]
 
 
 def tap(x, y):
-    """Draw X or O in tapped square."""
+    """Draw X or O in tapped square.
+    If square is occupied allows same player to take action
+    """
     x = floor(x)
     y = floor(y)
     player = state['player']
