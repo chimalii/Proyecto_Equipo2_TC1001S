@@ -10,7 +10,7 @@ from turtle import (
 from freegames import path
 
 auto = path('car.gif')
-fichas = list(range(32)) * 2
+fichas = list(range(10,42)) * 2
 estado = {'marca': None, 'clic': 0}
 oculto = [True] * 64
 
@@ -43,9 +43,10 @@ def clicar(x, y):
     ubicacion = indice(x, y)
     marca = estado['marca']
 
-    """Inclementa el contador """
+    """Inclementa el contador sólo en el rango válido."""
     estado['clic'] += 1
 
+    """Modifica la visualización de una ficha."""
     if (marca is None or marca == ubicacion
             or fichas[marca] != fichas[ubicacion]):
         estado['marca'] = ubicacion
@@ -80,7 +81,14 @@ def dibujar():
     up()
     goto(-200, 210)
     color('black')
-    write(f"Clics: {estado['clic']}", font=('Arial', 16, 'normal'))
+    write(f"Clics: {estado['clic']}", font=('Arial', 12, 'normal'))
+
+    """Muestra un mensaje si se destapan todas las fichas."""
+    if all(not oculto[count] for count in range(64)):
+        up()
+        goto(-100, -225)
+        color('red')
+        write("¡Felicidades! Destapaste todas las fichas.", font=('Arial', 12, 'normal'))
 
     update()
     ontimer(dibujar, 100)
