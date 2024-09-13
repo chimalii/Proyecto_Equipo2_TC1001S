@@ -23,22 +23,34 @@ def grid():
 
 def drawx(x, y, pos):
     """Draw X player."""
-    board[pos[1]][pos[0]] = 1       #Y position is first on a matrix
-    turtle.color('blue')
+    if board[pos[1]][pos[0]] == 0:
+        board[pos[1]][pos[0]] = 1       #Y position is first on a matrix
+        turtle.color('blue')
 
-    line(x + 7, y + 7, x + 126, y + 126)
-    line(x + 7, y + 126, x + 126, y + 7)
+        line(x + 7, y + 7, x + 126, y + 126)
+        line(x + 7, y + 126, x + 126, y + 7)
+        
+        return True
+    else:
+        print("Space occupied, try again")
+        return False
 
 
 def drawo(x, y, pos):
     """Draw O player."""
-    board[pos[1]][pos[0]] = 2       #Y position is first on a matrix
-    turtle.color('green')
-    
-    turtle.up()
-    turtle.goto(x + 67, y + 5)
-    turtle.down()
-    turtle.circle(62)
+    if board[pos[1]][pos[0]] == 0:
+        board[pos[1]][pos[0]] = 2       #Y position is first on a matrix
+        turtle.color('green')
+        
+        turtle.up()
+        turtle.goto(x + 67, y + 5)
+        turtle.down()
+        turtle.circle(62)
+
+        return True
+    else:
+        print("Space occupied, try again")
+        return False
 
 
 def floor(value):
@@ -77,10 +89,10 @@ def tap(x, y):
     y = floor(y)
     player = state['player']
     draw = players[player]
-    draw(x, y, findCoords(x,y))
+    stepTaken = draw(x, y, findCoords(x,y))
     turtle.update()
-    print(board)
-    state['player'] = not player
+    if stepTaken:
+        state['player'] = not player
 
 
 turtle.setup(420, 420, 370, 0)
@@ -88,8 +100,6 @@ turtle.hideturtle()
 turtle.tracer(False)
 grid()
 turtle.pensize(5)
-
-print(board)
 
 turtle.update()
 turtle.onscreenclick(tap)
