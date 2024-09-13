@@ -43,7 +43,8 @@ def clicar(x, y):
     ubicacion = indice(x, y)
     marca = estado['marca']
 
-    if marca is None or marca == ubicacion or fichas[marca] != fichas[ubicacion]:
+    if (marca is None or marca == ubicacion
+            or fichas[marca] != fichas[ubicacion]):
         estado['marca'] = ubicacion
     else:
         oculto[ubicacion] = False
