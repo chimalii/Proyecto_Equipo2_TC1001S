@@ -11,14 +11,19 @@ Exercises
 
 from random import choice
 from turtle import *
-
 from freegames import floor, vector
 
+# Initial game state with score
 state = {'score': 0}
+# Turtle to draw the board
 path = Turtle(visible=False)
+# Turtle to write the score
 writer = Turtle(visible=False)
+# Pacman's initial direction
 aim = vector(5, 0)
+# Pacman's starting position
 pacman = vector(-40, -80)
+# List of ghosts, ecah with a position and a movement vector
 ghosts = [
     [vector(-180, 160), vector(5, 0)],
     [vector(-180, -160), vector(0, 10)],
@@ -27,6 +32,8 @@ ghosts = [
     [vector(-40, 0), vector(10, 10)],  
     [vector(-80, 0), vector(-5, 5)]  
 ]
+
+#Game board, 0= wall, 1= path
 # fmt: off
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -111,15 +118,21 @@ def world():
 
 def move():
     """Move pacman and all ghosts."""
+    # Removes the previous score text
     writer.undo()
+    # Write the courrent score
     writer.write(state['score'])
 
     clear()
+    
+    # Move the Pacman
 
     if valid(pacman + aim):
         pacman.move(aim)
 
     index = offset(pacman)
+    
+    #If Pacmans eats a dot, update the state
 
     if tiles[index] == 1:
         tiles[index] = 2
@@ -130,12 +143,15 @@ def move():
 
     up()
     goto(pacman.x + 10, pacman.y + 10)
+    # Draws Pacman
     dot(20, 'yellow')
-
+    
+    #Move ghosts
     for point, course in ghosts:
         if valid(point + course):
             point.move(course)
         else:
+            # Make the ghosts move towards Pacman instead of randomly
             options = [
                 vector(5, 0),
                 vector(-5, 0),
