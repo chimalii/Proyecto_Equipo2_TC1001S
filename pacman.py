@@ -21,10 +21,10 @@ aim = vector(5, 0)
 pacman = vector(-40, -80)
 ghosts = [
     [vector(-180, 160), vector(5, 0)],
-    [vector(-180, -160), vector(0, 5)],
-    [vector(100, 160), vector(0, -5)],
-    [vector(100, -160), vector(-5, 0)],
-    [vector(-40, 0), vector(5, 5)],  
+    [vector(-180, -160), vector(0, 10)],
+    [vector(100, 160), vector(0, -10)],
+    [vector(100, -160), vector(-10, 0)],
+    [vector(-40, 0), vector(10, 10)],  
     [vector(-80, 0), vector(-5, 5)]  
 ]
 # fmt: off
