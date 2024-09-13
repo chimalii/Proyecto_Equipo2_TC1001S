@@ -10,7 +10,7 @@ from turtle import (
 from freegames import path
 
 auto = path('car.gif')
-fichas = list(range(10,42)) * 2
+fichas = list(range(10, 42)) * 2
 estado = {'marca': None, 'clic': 0}
 oculto = [True] * 64
 
@@ -94,7 +94,8 @@ def dibujar():
         up()
         goto(-100, -225)
         color('red')
-        write("¡Felicidades! Destapaste todas las fichas.", font=('Arial', 12, 'normal'))
+        write("¡Felicidades! Destapaste todas las fichas.",
+              font=('Arial', 12, 'normal'))
 
     update()
     ontimer(dibujar, 100)
