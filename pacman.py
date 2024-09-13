@@ -10,7 +10,8 @@ Exercises
 """
 
 from random import choice
-from turtle import *
+from turtle import (bgcolor, clear, goto, up, dot, ontimer, setup,
+                    hideturtle, tracer, listen, onkey, done, Turtle, update)
 from freegames import floor, vector
 
 # Initial game state with score
@@ -29,11 +30,11 @@ ghosts = [
     [vector(-180, -160), vector(0, 10)],
     [vector(100, 160), vector(0, -10)],
     [vector(100, -160), vector(-10, 0)],
-    [vector(-40, 0), vector(10, 10)],  
-    [vector(-80, 0), vector(-5, 5)]  
+    [vector(-40, 0), vector(10, 10)],
+    [vector(-80, 0), vector(-5, 5)]
 ]
 
-#Game board, 0= wall, 1= path
+# Game board, 0= wall, 1= path
 # fmt: off
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -124,15 +125,13 @@ def move():
     writer.write(state['score'])
 
     clear()
-    
     # Move the Pacman
 
     if valid(pacman + aim):
         pacman.move(aim)
 
     index = offset(pacman)
-    
-    #If Pacmans eats a dot, update the state
+    # If Pacmans eats a dot, update the state
 
     if tiles[index] == 1:
         tiles[index] = 2
@@ -145,8 +144,7 @@ def move():
     goto(pacman.x + 10, pacman.y + 10)
     # Draws Pacman
     dot(20, 'yellow')
-    
-    #Move ghosts
+    # Move ghosts
     for point, course in ghosts:
         if valid(point + course):
             point.move(course)
