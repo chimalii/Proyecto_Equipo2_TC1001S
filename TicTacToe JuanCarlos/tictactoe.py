@@ -23,12 +23,16 @@ def grid():
 
 def drawx(x, y):
     """Draw X player."""
-    line(x, y, x + 133, y + 133)
-    line(x, y + 133, x + 133, y)
+    turtle.color('blue')
+
+    line(x + 7, y + 7, x + 126, y + 126)
+    line(x + 7, y + 126, x + 126, y + 7)
 
 
 def drawo(x, y):
     """Draw O player."""
+    turtle.color('green')
+    
     turtle.up()
     turtle.goto(x + 67, y + 5)
     turtle.down()
@@ -59,6 +63,8 @@ turtle.setup(420, 420, 370, 0)
 turtle.hideturtle()
 turtle.tracer(False)
 grid()
+turtle.pensize(5)
+
 turtle.update()
 turtle.onscreenclick(tap)
 turtle.done()
