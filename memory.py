@@ -43,6 +43,12 @@ def clicar(x, y):
     ubicacion = indice(x, y)
     marca = estado['marca']
 
+    """Valida que los índices estén en un rango válido."""
+    if marca is not None and (marca < 0 or marca >= len(fichas)):
+        return
+    if ubicacion < 0 or ubicacion >= len(fichas):
+        return
+
     """Inclementa el contador sólo en el rango válido."""
     estado['clic'] += 1
 
