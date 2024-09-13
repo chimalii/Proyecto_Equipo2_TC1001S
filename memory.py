@@ -11,7 +11,7 @@ from freegames import path
 
 auto = path('car.gif')
 fichas = list(range(32)) * 2
-estado = {'marca': None}
+estado = {'marca': None, 'clic': 0}
 oculto = [True] * 64
 
 
@@ -43,6 +43,9 @@ def clicar(x, y):
     ubicacion = indice(x, y)
     marca = estado['marca']
 
+    """Inclementa el contador """
+    estado['clic'] += 1
+
     if (marca is None or marca == ubicacion
             or fichas[marca] != fichas[ubicacion]):
         estado['marca'] = ubicacion
@@ -73,13 +76,19 @@ def dibujar():
         color('black')
         write(fichas[marca], font=('Arial', 30, 'normal'))
 
+    """Muestra el contador de clics."""
+    up()
+    goto(-200, 210)
+    color('black')
+    write(f"Clics: {estado['clic']}", font=('Arial', 16, 'normal'))
+
     update()
     ontimer(dibujar, 100)
 
 
 """Inicializa el juego."""
 shuffle(fichas)
-setup(420, 420, 370, 0)
+setup(420, 480, 370, 0)
 addshape(auto)
 hideturtle()
 tracer(False)
