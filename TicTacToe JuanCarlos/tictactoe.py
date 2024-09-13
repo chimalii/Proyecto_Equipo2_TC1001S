@@ -24,12 +24,10 @@ def grid():
 def drawx(x, y, pos):
     """Draw X player."""
     if board[pos[1]][pos[0]] == 0:
-        board[pos[1]][pos[0]] = 1       #Y position is first on a matrix
+        board[pos[1]][pos[0]] = 1       # Y position is first on a matrix
         turtle.color('blue')
-
         line(x + 7, y + 7, x + 126, y + 126)
         line(x + 7, y + 126, x + 126, y + 7)
-        
         return True
     else:
         print("Space occupied, try again")
@@ -39,14 +37,12 @@ def drawx(x, y, pos):
 def drawo(x, y, pos):
     """Draw O player."""
     if board[pos[1]][pos[0]] == 0:
-        board[pos[1]][pos[0]] = 2       #Y position is first on a matrix
+        board[pos[1]][pos[0]] = 2       # Y position is first on a matrix
         turtle.color('green')
-        
         turtle.up()
         turtle.goto(x + 67, y + 5)
         turtle.down()
         turtle.circle(62)
-
         return True
     else:
         print("Space occupied, try again")
@@ -57,8 +53,9 @@ def floor(value):
     """Round value down to grid with square size 133."""
     return ((value + 200) // 133) * 133 - 200
 
-def findCoords(x,y):
-    """Determines the space on a matrix that corresponds to a set of coordinates"""
+
+def findCoords(x, y):
+    """Determine the space on a matrix corresponding to a set of coordinates"""
     _x = 0
     _y = 0
 
@@ -78,9 +75,10 @@ def findCoords(x,y):
 
     return (_x, _y)
 
+
 state = {'player': 0}
 players = [drawx, drawo]
-board =  [[0] * 3 for _ in range(3)]
+board = [[0] * 3 for _ in range(3)]
 
 
 def tap(x, y):
@@ -89,7 +87,7 @@ def tap(x, y):
     y = floor(y)
     player = state['player']
     draw = players[player]
-    stepTaken = draw(x, y, findCoords(x,y))
+    stepTaken = draw(x, y, findCoords(x, y))
     turtle.update()
     if stepTaken:
         state['player'] = not player
